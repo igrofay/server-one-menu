@@ -58,10 +58,10 @@ class MenuRestaurantReposImpl(
 
     override suspend fun updateDishImage(dishId: Int, image: ByteArray) {
         menuRestaurantService.getDishImage(dishId)?.let {lastNameImage->
-            File("$imagesPath\\$lastNameImage.jpg").delete()
+            File("$imagesPath${File.separatorChar}$lastNameImage.jpg").delete()
         }
         val newName = System.currentTimeMillis().toString()
-        File("$imagesPath\\$newName.jpg").writeBytes(image)
+        File("$imagesPath${File.separatorChar}$newName.jpg").writeBytes(image)
         menuRestaurantService.updateDishImage(dishId, newName)
     }
 

@@ -26,10 +26,10 @@ class RestaurantReposImpl(
 
     override suspend fun uploadImage(id: Int, image: ByteArray): Unit = withContext(Dispatchers.IO){
         restaurantService.getImageName(id)?.let { lastNameImage->
-            File("$imagesPath\\$lastNameImage.jpg").delete()
+            File("$imagesPath${File.separatorChar}$lastNameImage.jpg").delete()
         }
         val newName = System.currentTimeMillis().toString()
-        File("$imagesPath\\$newName.jpg").writeBytes(image)
+        File("$imagesPath${File.separatorChar}$newName.jpg").writeBytes(image)
         restaurantService.updateImage(id, newName)
     }
 

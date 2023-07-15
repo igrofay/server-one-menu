@@ -14,10 +14,10 @@ class ClientReposImpl(
 ) : ClientRepos{
     override suspend fun uploadImage(clientId: Int, byteArray: ByteArray) {
         clientService.getImageName(clientId)?.let { lastNameImage->
-            File("$imagesPath\\$lastNameImage.jpg").delete()
+            File("$imagesPath${File.separatorChar}$lastNameImage.jpg").delete()
         }
         val newName = System.currentTimeMillis().toString()
-        File("$imagesPath\\$newName.jpg").writeBytes(byteArray)
+        File("$imagesPath${File.separatorChar}$newName.jpg").writeBytes(byteArray)
         clientService.updateImage(clientId, newName)
     }
 
